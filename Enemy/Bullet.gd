@@ -1,5 +1,10 @@
 extends KinematicBody2D
 
+
+func _ready():
+	pass
+extends KinematicBody2D
+
 var velocity = Vector2.ZERO
 var speed = 500.0
 var damage = 1
@@ -29,4 +34,16 @@ func _on_Area2D_body_entered(body):
 
 
 func _on_Timer_timeout():
+	var Player = get_node_or_null("/root/Player_Container/Player")
+	Effects = get_node_or_null("/root/Game/Effects")
+	if Player != null and Effects != null: 
+	var bullet = Bullet.instance()
+	var d = global_position.angle_to_point(Player.global_position)
+	Effects.add_child(bullet)
+	bullet.roation = d 
+	bullet.global_position = global_posotion + Vector2(0,-40).rotated(d)
 	queue_free()
+
+
+func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	pass # Replace with function body.
